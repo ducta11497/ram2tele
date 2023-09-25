@@ -1,4 +1,4 @@
-const os = require('os');
+const si = require('systeminformation');
 const axios = require('axios');
 
 require('dotenv').config();
@@ -8,8 +8,9 @@ const TELEGRAM_API_TOKEN = process.env.TELEGRAM_API_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 
 const checkRAMUsage = async () => {
-    const totalMemory = os.totalmem();
-    const freeMemory = os.freemem();
+    const data = await si.mem();
+    const totalMemory = data.total;
+    const freeMemory = data.available;
     const usedMemory = totalMemory - freeMemory;
     const ramUsagePercentage = (usedMemory / totalMemory) * 100;
 
